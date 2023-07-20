@@ -1,40 +1,20 @@
 import { useEffect, useState } from 'react'
-import { FACT_API_ENDPOINT, IMAGE_API_ENDPOINT } from './constants'
 import { Fact } from './components/Fact'
 import './App.css'
+import { getRandomFact } from './services/facts'
+import { useCatImage } from './hooks/useCatImage'
 
 export const App = () => {
   const [fact, setFact] = useState()
-  const [image, setImage] = useState()
+  const image = useCatImage({ fact })
 
   // Al montar el componente, hacemos una petición a la API para recoger el fact
   useEffect(() => {
-    fetch(FACT_API_ENDPOINT)
-      .then(response => {
-        if (!response.ok) throw new Error('Error fetching fact')
-        return response.json()
-      })
-      .then(data => setFact(data.fact))
-      .catch(error => {
-        // Tanto si hay un error en la petición como si hay un error en el json
-        console.error(error)
-      })
+    getRandomFact().then(setFact)
   }, [])
 
-  // Cuando cambie el fact, vamos a por la img del gatito.
-  useEffect(() => {
-    if (!fact) return
-    // Recogemos la primera palabra del fact.
-    const firstWord = fact.split(' ')[0]
-    console.log(firstWord)
-    fetch(`${IMAGE_API_ENDPOINT}${firstWord}`)
-      .then(response => setImage(response.url))
-  }, [fact])
-
-  const refreshFact = () => {
-    fetch(FACT_API_ENDPOINT)
-      .then(response => response.json())
-      .then(data => setFact(data.fact))
+  const handleClick = () => {
+    getRandomFact().then(setFact)
   }
 
   return (
@@ -47,7 +27,7 @@ export const App = () => {
       }
       {
         (fact !== '' && image !== '') &&
-          <button onClick={() => refreshFact()}>REFRESH FACT</button>
+          <button onClick={() => handleClick()}>REFRESH FACT</button>
       }
     </main>
   )
