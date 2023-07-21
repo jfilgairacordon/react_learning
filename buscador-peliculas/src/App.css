@@ -33,6 +33,7 @@ main .movies{
   display: grid;
   grid-template-rows: 1fr min-content min-content;
   gap: 6px;
+  text-align: center;
 }
 .movie img{
   border-radius: 8px;

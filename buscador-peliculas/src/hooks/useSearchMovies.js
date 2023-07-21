@@ -7,8 +7,7 @@ export function useSearchMovies () {
   // Valor mutable que persiste entre renderizaciones
   const isFirstInput = useRef(true)
 
-  const configureQuery = (event) => {
-    const { value } = event.target
+  const configureQuery = (value) => {
     if (value.startsWith(' ')) return
     setQuery(value)
   }
