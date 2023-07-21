@@ -16,7 +16,7 @@ export const getRandomFact = () => {
     })
 }
 
-export const fetchCatImage = ({ word }) => {
+export const fetchCatImage = (word) => {
   return fetch(`${IMAGE_API_ENDPOINT}${word}`)
     .then(response => {
       if (!response.ok) throw new Error('Error fetching image')

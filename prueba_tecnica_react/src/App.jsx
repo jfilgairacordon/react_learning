@@ -1,20 +1,14 @@
-import { useEffect, useState } from 'react'
 import { Fact } from './components/Fact'
 import './App.css'
-import { getRandomFact } from './services/facts'
 import { useCatImage } from './hooks/useCatImage'
+import { useFact } from './hooks/useFact'
 
 export const App = () => {
-  const [fact, setFact] = useState()
+  const { fact, getFact } = useFact()
   const image = useCatImage({ fact })
 
-  // Al montar el componente, hacemos una petición a la API para recoger el fact
-  useEffect(() => {
-    getRandomFact().then(setFact)
-  }, [])
-
   const handleClick = () => {
-    getRandomFact().then(setFact)
+    getFact()
   }
 
   return (
@@ -23,7 +17,7 @@ export const App = () => {
       {
         (fact !== '' && image !== '')
           ? <Fact fact={fact} image={image} />
-          : <p>Cargando...</p>
+          : <p data-testid='loading'>Cargando...</p>
       }
       {
         (fact !== '' && image !== '') &&
