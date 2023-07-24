@@ -12,7 +12,7 @@ const routes = [
 function App () {
   return (
     <main>
-      <Suspense fallback={<h1>Loading...</h1>}>
+      <Suspense fallback={null}>
         <Router routes={routes}>
           <Route path='/' component={HomePage} />
           <Route path='/about' component={AboutPage} />
