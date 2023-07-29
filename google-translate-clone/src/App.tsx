@@ -63,7 +63,7 @@ function App () {
   return (
     <Container fluid>
       <h1>Jfilgaira Translate</h1>
-      <Row>
+        <Row>
         <Col xs='auto'>
           <Stack gap={2}>
             <LanguageSelector
